@@ -100,6 +100,14 @@ const renameRules = [
     { url: "/clova-studio", name: "CLOVA Studio" },
     { url: "/eye/domain", name: "CLOVA GreenEye" }, 
     
+    // Application Services
+    { url: "/geolocation", name: "GeoLocation" }, 
+    { url: "/sens", name: "Simple & Easy Notification Service" }, 
+    { url: "/emailSVR", name: "Cloud Outbound Mailer" }, 
+    { url: "/apigw", name: "API Gateway" }, 
+    { url: "/maps", name: "Maps" }, 
+    { url: "/vrmq", name: "Ncloud Simple RabbitMQ" }, 
+
     // AI·NAVER API
     { url: "/naver-service", name: "AI·NAVER API" },
 
