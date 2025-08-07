@@ -68,12 +68,12 @@ const renameRules = [
     { url: "/vpc-cloud-connect/ncloudConnect", name: "Cloud Connect" },
 
     // Database
-    { url: "/vpcCloudMysql/server", name: "Cloud DB for MySQL" },
-    { url: "/vpcCloudCache/server", name: "Cloud DB for Cache" },
-    { url: "/vpcCloudMSSQL/server", name: "Cloud DB for MSSQL" },
-    { url: "/vpcCloudMongoDB/server", name: "Cloud DB for MongoDB" },
-    { url: "/vpcCloudPostgresql/server", name: "Cloud DB for PostgreSQL" },
-    { url: "/vpcMigService/migration", name: "Database Migration Service" },
+    { url: "/vpcCloudMysql", name: "Cloud DB for MySQL" },
+    { url: "/vpcCloudCache", name: "Cloud DB for Cache" },
+    { url: "/vpcCloudMSSQL", name: "Cloud DB for MSSQL" },
+    { url: "/vpcCloudMongoDB", name: "Cloud DB for MongoDB" },
+    { url: "/vpcCloudPostgresql", name: "Cloud DB for PostgreSQL" },
+    { url: "/vpcMigService", name: "Database Migration Service" },
 
     // Security
     { url: "/app-security-safer", name: "App Safer" },
