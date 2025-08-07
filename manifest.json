@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "NCP Tab Renamer",
+  "version": "1.0",
+  "description": "네이버 클라우드 콘솔 창의 URL을 기반으로 탭 이름을 변경합니다.",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://console.ncloud.com/*" , 
+    "https://console.fin-ncloud.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "NCP Tab Renamer", 
+    "default_popup": "popup.html" 
+  }
+}
