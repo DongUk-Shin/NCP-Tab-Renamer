@@ -181,4 +181,12 @@ const renameRules = [
     // Migration
     { url: "/ObjectMigration", name: "Object Migration" },
     { url: "/data-teleporter", name: "Data Teleporter" },
+
+
+
+
+
+    // 금융존
+    { url: "/hsm", name: "Hardware Security Module" },
+
 ];

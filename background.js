@@ -3,8 +3,8 @@ importScripts('rules.js');
 
 const domains = [
     "https://console.ncloud.com",
-    //"https://console.fin-ncloud.com",
-    //"https://console.gov-ncloud.com"
+    "https://console.fin-ncloud.com",
+    "https://console.gov-ncloud.com"
 ];
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
