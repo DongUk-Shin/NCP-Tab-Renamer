@@ -10,8 +10,12 @@
   ],
   "host_permissions": [
     "https://console.ncloud.com/*" , 
-    "https://console.fin-ncloud.com/*"
+    "https://console.fin-ncloud.com/*",
+    "https://console.gov-ncloud.com/*"
   ],
+  "icons": {
+    "128": "icons.png"
+  },
   "background": {
     "service_worker": "background.js"
   },
