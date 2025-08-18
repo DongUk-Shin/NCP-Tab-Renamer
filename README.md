@@ -20,4 +20,4 @@ URL을 기반으로
 
 # 버그 문의
 
-donguk@n3cloud.co.kr
+az9170@naver.com
