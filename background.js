@@ -1,4 +1,4 @@
-// background.js 파일
+// background.js
 importScripts('rules.js');
 
 const domains = [
@@ -7,46 +7,71 @@ const domains = [
     "https://console.gov-ncloud.com"
 ];
 
+// 공통 처리 함수
+function handleUrlChange(tabId, url) {
+    if (!url || !url.startsWith("http")) return;
+
+    let urlObj;
+    try {
+        urlObj = new URL(url);
+    } catch (e) {
+        console.warn("URL 파싱 실패:", url);
+        return;
+    }
+
+    const currentDomain = urlObj.origin;
+    const currentPathname = urlObj.pathname;
+
+    console.log(`▶ handleUrlChange 호출: ${currentDomain}${currentPathname}`);
+
+    if (!domains.includes(currentDomain)) {
+        console.log(`[실패] 도메인이 허용된 목록에 포함되지 않습니다. 현재 도메인: ${currentDomain}`);
+        return;
+    }
+
+    const matchedRule = renameRules.find(rule => currentPathname.startsWith(rule.url));
+
+    if (!matchedRule) {
+        console.log(`[실패] 일치하는 규칙을 찾지 못했습니다. 현재 경로: ${currentPathname}`);
+        return;
+    }
+
+    console.log(`[성공] 매칭된 규칙: ${matchedRule.url}, 변경될 이름: ${matchedRule.name}`);
+
+    // 🔥 핵심 변경 부분: executeScript 제거 → content script 로 메시지 전달
+    chrome.tabs.sendMessage(tabId, {
+        type: "SET_TITLE",
+        title: matchedRule.name
+    }, () => {
+        if (chrome.runtime.lastError) {
+            // content.js 가 아직 로드되지 않은 경우 발생 (SPA 이동 시)
+            console.warn("content script 메시지 오류:", chrome.runtime.lastError.message);
+        }
+    });
+}
+
+// 1) 일반적인 페이지 로딩 완료 (full reload)
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    // 탭이 로딩될 때마다 현재 URL을 로그로 찍어 확인
-    console.log(`현재 URL: ${tab.url}`);
+    console.log(`onUpdated 이벤트: status=${changeInfo.status}, url=${tab.url}`);
 
     if (changeInfo.status === 'complete' && tab.url && tab.url.startsWith("http")) {
-        const url = new URL(tab.url);
-        const currentDomain = url.origin;
-        const currentPathname = url.pathname;
-
-        if (domains.includes(currentDomain)) {
-            const matchedRule = renameRules.find(rule => currentPathname.startsWith(rule.url));
-            
-            if (matchedRule) {
-                // 매칭된 규칙과 변경될 이름을 로그로 찍어 확인
-                console.log(`[성공] 매칭된 규칙: ${matchedRule.url}, 변경될 이름: ${matchedRule.name}`);
-                
-                chrome.scripting.executeScript({
-                    target: { tabId: tabId },
-                    func: setTabTitle,
-                    args: [matchedRule.name]
-                })
-                .catch(error => {
-                    // 탭이 닫혀 발생하는 오류는 무시하도록 예외 처리
-                    if (error.message.includes("No tab with id")) {
-                        console.warn("존재하지 않는 탭에 접근하려 했습니다. 탭이 이미 닫힌 것 같습니다.");
-                    } else {
-                        console.error("탭 스크립트 실행 중 알 수 없는 오류 발생:", error);
-                    }
-                });
-            } else {
-                // 일치하는 규칙을 찾지 못한 경우, 현재 경로를 로그에 추가
-                console.log(`[실패] 일치하는 규칙을 찾지 못했습니다. 현재 경로: ${currentPathname}`);
-            }
-        } else {
-            // 허용되지 않은 도메인인 경우, 현재 도메인을 로그에 추가
-            console.log(`[실패] 도메인이 허용된 목록에 포함되지 않습니다. 현재 도메인: ${currentDomain}`);
-        }
+        handleUrlChange(tabId, tab.url);
     }
 });
 
-function setTabTitle(newTitle) {
-    document.title = newTitle;
-}
+// 2) SPA 내부 이동 감지 (history.pushState / replaceState 등)
+chrome.webNavigation.onHistoryStateUpdated.addListener((details) => {
+    if (details.frameId !== 0) return;
+
+    console.log(`onHistoryStateUpdated 이벤트: tabId=${details.tabId}, url=${details.url}`);
+
+    if (details.url && details.url.startsWith("http")) {
+        handleUrlChange(details.tabId, details.url);
+    }
+}, {
+    url: [
+        { hostEquals: "console.ncloud.com" },
+        { hostEquals: "console.fin-ncloud.com" },
+        { hostEquals: "console.gov-ncloud.com" }
+    ]
+});
