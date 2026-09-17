@@ -13,6 +13,8 @@ const renameRules = [
     */
 
     // Server
+    // 금융존 전용: 일반 Dashboard 규칙보다 먼저 매칭되어야 함
+    { url: "/dashboard/sslVpnManagement", name: "SSL VPN 접속 관리" },
     { url: "/dashboard", name: "Dashboard" },
     { url: "/vpc-compute/serverImage", name: "Server Image" },
     { url: "/vpc-compute/server", name: "Server" },
