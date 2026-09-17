@@ -182,11 +182,36 @@ const renameRules = [
     { url: "/ObjectMigration", name: "Object Migration" },
     { url: "/data-teleporter", name: "Data Teleporter" },
 
-
-
-
-
     // 금융존
     { url: "/hsm", name: "Hardware Security Module" },
+
+    // Billing & Account Management
+    { url: "/billing/billing", name: "청구서" },
+    { url: "/billing/paymentInformationManagement", name: "결제 정보 관리" },
+    { url: "/billing/creditManagement", name: "크레딧 관리" },
+    { url: "/billing/coinManagement", name: "코인 관리" },
+    { url: "/billing/discountManagement", name: "할인 관리" },
+    { url: "/cost-management/dashboard", name: "비용 관리" },
+    { url: "/member/accountManagement", name: "계정 관리" },
+    { url: "/member/accessManagement", name: "접근 관리" },
+    { url: "/member/notifications", name: "알림 관리" },
+
+    // New Services
+    { url: "/cbt-vnks", name: "Ncloud Kubernetes Service" },
+    { url: "/cdbServerless", name: "Cloud DB Serverless" },
+    { url: "/mi", name: "Media Intelligence" },
+    { url: "/mlxp", name: "ML expert Platform" },
+    { url: "/naver-api-hub", name: "NAVER API HUB" },
+
+    // 공공존 전용
+    { url: "/cloud-desktop", name: "Cloud Desktop" },
+    { url: "/secure-access", name: "Secure Access" },
+
+    // 금융존 전용
+    { url: "/ekyc", name: "CLOVA eKYC" },
+    { url: "/vpc-managed-ipsec-vpn", name: "Managed IPsec VPN" },
+
+    // 금융존: 민간·공공존의 /vpc-cloud-connect/ncloudConnect와 URL이 다름
+    { url: "/vpc-cloud-connect/cloudConnect", name: "Cloud Connect" },
 
 ];
