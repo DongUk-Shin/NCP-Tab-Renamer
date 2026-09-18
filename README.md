@@ -16,6 +16,13 @@
 - 일반 페이지 이동 및 SPA 화면 전환 지원
 - 서버, 네트워크, 스토리지, 데이터베이스 등 다양한 서비스 지원
 
+## 탭 이름 규칙
+
+- **Server · VPC**: 하위 카테고리명으로 표시합니다.  
+  예: `/vpc-network/subnet` → `Subnet Management`
+- **그 외 서비스**: 상위 서비스명으로 표시합니다.  
+  예: `/vpc-load-balancer/targetGroup` → `Load Balancer`
+
 ## 링크
 
 - [Chrome 웹 스토어](https://chromewebstore.google.com/detail/kepchlbcpcbgklloofocpmmhdfnoebid?utm_source=item-share-cb)
